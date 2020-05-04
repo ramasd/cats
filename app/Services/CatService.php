@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\CatServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class CatService implements CatServiceInterface
@@ -89,7 +90,7 @@ class CatService implements CatServiceInterface
      * @param $n
      * @return string
      */
-    public function displayCats($n)
+    public function CatsString($n)
     {
         $file_name = 'cats.txt';
 
@@ -101,4 +102,15 @@ class CatService implements CatServiceInterface
 
         return $this->arrayToCommaSeparatedString($cats);
     }
+
+    /**
+     * @param $visits
+     * @return mixed
+     */
+    public function countVisits($visits)
+    {
+        return Redis::incr($visits);
+    }
+
+
 }

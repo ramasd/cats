@@ -40,5 +40,11 @@ interface CatServiceInterface
      * @param $n
      * @return string
      */
-    public function displayCats($n);
+    public function CatsString($n);
+
+    /**
+     * @param $visits
+     * @return mixed
+     */
+    public function countVisits($visits);
 }
