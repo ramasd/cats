@@ -88,9 +88,9 @@ class CatService implements CatServiceInterface
 
     /**
      * @param $n
-     * @return string
+     * @return mixed|string[]
      */
-    public function CatsString($n)
+    public function catsArray($n)
     {
         $file_name = 'cats.txt';
 
@@ -98,7 +98,16 @@ class CatService implements CatServiceInterface
 
         $all_cats = $this->txtFileToArrByLines($contents);
 
-        $cats = $this->getCertainNumberOfItems($all_cats, $n, 3);
+        return $this->getCertainNumberOfItems($all_cats, $n, 3);
+    }
+
+    /**
+     * @param $n
+     * @return string
+     */
+    public function catsString($n)
+    {
+        $cats = $this->catsArray($n);
 
         return $this->arrayToCommaSeparatedString($cats);
     }
@@ -112,5 +121,32 @@ class CatService implements CatServiceInterface
         return Redis::incr($visits);
     }
 
+    /**
+     * @param $data
+     */
+    public function storeLog($data)
+    {
+        Storage::append('log.json', \GuzzleHttp\json_encode($data));
+    }
 
+    /**
+     * @param $n
+     */
+    public function logData($n)
+    {
+        $count_n = $this->countVisits($n);
+        $count_all = $this->countVisits('all');
+        $cats_array = $this->CatsArray($n);
+        $date_time = Carbon::now()->format("Y-M-d H:m:s");
+
+        $data = [
+            "datetime" => $date_time,
+            "N" => $n,
+            "Cats" => $cats_array,
+            "countAll" => $count_all,
+            "countN" => $count_n
+        ];
+
+        Storage::append('log.json', \GuzzleHttp\json_encode($data));
+    }
 }

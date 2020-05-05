@@ -22,14 +22,14 @@ class CatController extends Controller
 
     /**
      * @param $n
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return string
      */
     public function index($n)
     {
-        $route_visits = $this->catService->countVisits($n);
-        $total_visits = $this->catService->countVisits('total');
-        $cats = $this->catService->CatsString($n);
+        $cats = $this->catService->catsString($n);
 
-        return view('cats.index')->with(compact('route_visits','total_visits', 'cats'));
+        $this->catService->logData($n);
+
+        return $cats;
     }
 }

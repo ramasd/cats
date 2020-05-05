@@ -38,13 +38,29 @@ interface CatServiceInterface
 
     /**
      * @param $n
+     * @return mixed|string[]
+     */
+    public function catsArray($n);
+
+    /**
+     * @param $n
      * @return string
      */
-    public function CatsString($n);
+    public function catsString($n);
 
     /**
      * @param $visits
      * @return mixed
      */
     public function countVisits($visits);
+
+    /**
+     * @param $data
+     */
+    public function storeLog($data);
+
+    /**
+     * @param $n
+     */
+    public function logData($n);
 }
