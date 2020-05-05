@@ -137,7 +137,7 @@ class CatService implements CatServiceInterface
         $count_n = $this->countVisits($n);
         $count_all = $this->countVisits('all');
         $cats_array = $this->CatsArray($n);
-        $date_time = Carbon::now()->format("Y-M-d H:m:s");
+        $date_time = Carbon::now()->format("Y-M-d H:i:s");
 
         $data = [
             "datetime" => $date_time,
