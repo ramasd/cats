@@ -11,10 +11,10 @@ interface CatServiceInterface
     public function getCacheKey($key);
 
     /**
-     * @param $file_name
+     * @param $fileName
      * @return string
      */
-    public function getFileContents($file_name);
+    public function getFileContents($fileName);
 
     /**
      * @param $file

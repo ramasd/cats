@@ -24,15 +24,15 @@ class CatService implements CatServiceInterface
     }
 
     /**
-     * @param $file_name
+     * @param $fileName
      * @return string
      */
-    public function getFileContents($file_name)
+    public function getFileContents($fileName)
     {
         $contents = "";
 
-        if (Storage::disk('local')->exists($file_name)) {
-            $contents = Storage::get($file_name);
+        if (Storage::disk('local')->exists($fileName)) {
+            $contents = Storage::get($fileName);
         }
 
         return $contents;
@@ -92,13 +92,13 @@ class CatService implements CatServiceInterface
      */
     public function catsArray($n)
     {
-        $file_name = 'cats.txt';
+        $fileName = 'cats.txt';
 
-        $contents = $this->getFileContents($file_name);
+        $contents = $this->getFileContents($fileName);
 
-        $all_cats = $this->txtFileToArrByLines($contents);
+        $allCats = $this->txtFileToArrByLines($contents);
 
-        return $this->getCertainNumberOfItems($all_cats, $n, 3);
+        return $this->getCertainNumberOfItems($allCats, $n, 3);
     }
 
     /**
@@ -134,17 +134,17 @@ class CatService implements CatServiceInterface
      */
     public function logData($n)
     {
-        $count_n = $this->countVisits($n);
-        $count_all = $this->countVisits('all');
-        $cats_array = $this->CatsArray($n);
-        $date_time = Carbon::now()->format("Y-M-d H:i:s");
+        $countN = $this->countVisits($n);
+        $countAll = $this->countVisits('all');
+        $catsArray = $this->CatsArray($n);
+        $dateTime = Carbon::now()->format("Y-M-d H:i:s");
 
         $data = [
-            "datetime" => $date_time,
+            "datetime" => $dateTime,
             "N" => $n,
-            "Cats" => $cats_array,
-            "countAll" => $count_all,
-            "countN" => $count_n
+            "Cats" => $catsArray,
+            "countAll" => $countAll,
+            "countN" => $countN
         ];
 
         Storage::append('log.json', \GuzzleHttp\json_encode($data));
